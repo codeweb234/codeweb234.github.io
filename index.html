@@ -156,6 +156,115 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Webpack4.0" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/04/Webpack4.0/">Webpack4.0</a>
+    </h1>
+  
+
+        
+        <a href="/2020/02/04/Webpack4.0/" class="archive-article-date">
+  	<time datetime="2020-02-04T01:29:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h5 id="webpack介绍"><a href="#webpack介绍" class="headerlink" title="webpack介绍"></a>webpack介绍</h5><p>webpack是一个前端资源加载/打包工具。它根据模块的依赖关系进行静态分析，然后将这些模块安装指定的规则生成对应的静态资源。</p>
+<p>![BP] (Webpack4.0/image-20200204093651758.png)</p>
+<img src="Webpack4.0/image-20200204093651758.png" alt="image-20200204093651758"  />
+
+<p>可以做的事情</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">代码转换、文件优化、代码分割、模块合并、自动刷新、代码校验、自动发布</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="webpack4新特性"><a href="#webpack4新特性" class="headerlink" title="webpack4新特性"></a>webpack4新特性</h5><p>一、mode属性</p>
+<p>webpack需要设置mode属性，可以是development或production。例如webpack –mode development</p>
+<p>webpack针对开发模式提供的特性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">浏览器调试工具</span><br><span class="line">注释、开发阶段的详细错误日志和提示</span><br><span class="line">快速和优化的增量构建机制</span><br></pre></td></tr></table></figure>
+
+<p>webpack针对生成模式提供的特性：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">开启所有的优化代码</span><br><span class="line">更小的bundle大小</span><br><span class="line">去除掉只在开发阶段运行的代码</span><br><span class="line">Scope hoisting 和 Tree-shaking 引入的模块，但没有使用，会被抖动掉</span><br></pre></td></tr></table></figure>
+
+<p>二、插件和优化</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">webpack4删除了CommonsChunkPlugin插件，它使用内置API optimization.splitChunks 和 optimization.runtimeChunk,意味着webpack会默认为你生成共享代码块。</span><br><span class="line">NoEmitOnErrorsPlugin废弃 --&gt; 使用optimization.noEmitOnErrors替代</span><br><span class="line">ModuleConcatenationPlugin废弃 --&gt; 使用optimization.concatenateModules替代</span><br><span class="line">NamedModulesPlugin废弃 --&gt; 使用optimization.namedModules替换</span><br><span class="line">uglifyjs-webpack-plugin升级到了v1.0版本 加密丑化代码</span><br></pre></td></tr></table></figure>
+
+<p>三、开箱即用WebAssembly</p>
+<p>WebAssembly会带来运行时性能的大幅度提升。</p>
+<h5 id="webpack介绍安装"><a href="#webpack介绍安装" class="headerlink" title="webpack介绍安装"></a>webpack介绍安装</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">webpack webpack-cli -D</span><br></pre></td></tr></table></figure>
+
+<p>手动配置webpack</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">默认配置文件的名字 webpack.config.js</span><br><span class="line">手动指定配置文件 npx webpack --config webapck.config.my.js</span><br></pre></td></tr></table></figure>
+
+<p>html插件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">自动创建html打包到内存中，并且生成到dist目录中,并且自动引入js</span><br><span class="line">npm install html-webpack-plugin -D</span><br><span class="line">plugins: [ &#x2F;&#x2F;放着所有的webpack插件</span><br><span class="line">    new HTMLWebpackPlugin(&#123;</span><br><span class="line">      template: &#39;.&#x2F;src&#x2F;index.html&#39;,</span><br><span class="line">      filename: &#39;index.html&#39;, &#x2F;&#x2F;打包后命名为index.html</span><br><span class="line">      minify: &#123; &#x2F;&#x2F;html文件也要被压缩</span><br><span class="line">        removeAttributeQuotes: true, &#x2F;&#x2F;删除双引号</span><br><span class="line">        collapseWhitespace: true, &#x2F;&#x2F;折叠为一行</span><br><span class="line">      &#125;,</span><br><span class="line">      hash: true</span><br><span class="line">    &#125;)</span><br><span class="line"> ]</span><br></pre></td></tr></table></figure>
+
+<p>css样式处理</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">npm install css-loader style-loader -D</span><br><span class="line">module: &#123; &#x2F;&#x2F;模块</span><br><span class="line">    rules: [ &#x2F;&#x2F;规则</span><br><span class="line">      &#123; &#x2F;&#x2F; css-loader 负责解析@import这种语法的 </span><br><span class="line">        &#x2F;&#x2F;style-loader 负责把css插入到head的标签中</span><br><span class="line">        &#x2F;&#x2F;loader的特点 希望单一</span><br><span class="line">        &#x2F;&#x2F;loader的用法 字符串只用一个loader 多个loader需要[]</span><br><span class="line">        &#x2F;&#x2F;loader的顺序 默认是从右向左执行</span><br><span class="line">        test:&#x2F;\.css$&#x2F;, use: [&#39;style-loader&#39;,&#39;css-loader&#39;]</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>less处理</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">npm install less less-loader -D</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">	test:&#x2F;\.less$&#x2F;,</span><br><span class="line">	use: [</span><br><span class="line">	&#39;style-loader&#39;,</span><br><span class="line">	&#39;css-loader&#39;,</span><br><span class="line">	&#39;less-loader&#39; &#x2F;&#x2F;less -&gt; css</span><br><span class="line">	]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>抽离css样式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">npm install mini-css-extract-plugin -D</span><br><span class="line"></span><br><span class="line">plugins: [ </span><br><span class="line">    new MiniCssExtractPlugin(&#123;</span><br><span class="line">      filename: &#39;main.css&#39;</span><br><span class="line">    &#125;)</span><br><span class="line">  ],</span><br></pre></td></tr></table></figure>
+
+<p>优化CSS、JS插件 生成环境</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">npm install optimize-css-assets-webpack-plugin -D</span><br><span class="line">npm install uglifyjs-webpack-plugin -D</span><br><span class="line"></span><br><span class="line">optimization: &#123;</span><br><span class="line">	minimizer: [</span><br><span class="line">		new UglifyJsPlugin(&#123;</span><br><span class="line">			cache: true,</span><br><span class="line">			parallel: true,</span><br><span class="line">			sourceMap: true</span><br><span class="line">		&#125;),</span><br><span class="line">		new OptimizeCss()</span><br><span class="line">	]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>转换ES6语法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">npm install babel-loader @babel&#x2F;core @babel&#x2F;preset-env -D</span><br><span class="line">npm install @babel&#x2F;plugin-proposal-class-properties -D 类属性</span><br><span class="line">npm install @babel&#x2F;plugin-proposal-decorators -D 类装饰器</span><br><span class="line">npm install @babel&#x2F;plugin-transform-runtime -D </span><br><span class="line">npm install @babel&#x2F;runtime -D</span><br><span class="line"></span><br><span class="line">rules: [</span><br><span class="line">	&#123;</span><br><span class="line">		test:&#x2F;\.js$&#x2F;</span><br><span class="line">		use: &#123;</span><br><span class="line">			loader: &#39;babel-loader&#39;,</span><br><span class="line">			options: &#123; &#x2F;&#x2F;用babel-loader 把es6转成es5</span><br><span class="line">				presets: [</span><br><span class="line">					&#39;@babel&#x2F;preset-env&#39;</span><br><span class="line">				],</span><br><span class="line">				plugins: [</span><br><span class="line">					[&#39;@babel&#x2F;plugin-proposal-decorators&#39;,&#123;&quot;legacy&quot;: true&#125;]</span><br><span class="line">					&#39;@babel&#x2F;plugin-proposal-class-properties&#39;,</span><br><span class="line">					&#39;@babel&#x2F;plugin-transform-runtime&#39;</span><br><span class="line">				]</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/02/04/Webpack4.0/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-股票估值知识点" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
