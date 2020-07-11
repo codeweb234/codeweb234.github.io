@@ -156,6 +156,118 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-NestJS" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/11/NestJS/">NestJS</a>
+    </h1>
+  
+
+        
+        <a href="/2020/07/11/NestJS/" class="archive-article-date">
+  	<time datetime="2020-07-11T13:59:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ npm i -g @nestjs&#x2F;cli</span><br><span class="line">$ nest new project-name</span><br></pre></td></tr></table></figure>
+<h2 id="Controller"><a href="#Controller" class="headerlink" title="Controller"></a>Controller</h2><p>控制器负责处理传入的请求并向客户端返回响应。控制器的目的是接收应用程序的特定请求，路由机制控制哪个控制器接收哪个请求。通常，每个控制器有多个路由，不同的路由可以执行不同的操作。<br>为了创建一个基本控制器，我们使用类和装饰器。装饰器将类与所需的元数据关联起来，并使Nest能够创建一个路由映射(将请求关联到相应的控制器)。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Controller, Get &#125; from &#39;@nestjs&#x2F;common&#39;;</span><br><span class="line"></span><br><span class="line">@Controller(&#39;cats&#39;)</span><br><span class="line">export class CatsController &#123;</span><br><span class="line">  @Get()</span><br><span class="line">  findAll(): string &#123;</span><br><span class="line">    return &#39;This action returns all cats&#39;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">findAll()方法之前的@Get() HTTP请求方法装饰器告诉Nest为HTTP请求的特定端点创建处理程序.</span><br><span class="line">因为我们已经为每个路由(cats)声明了一个前缀，并且没有在装饰器中添加任何路径信息，所以Nest将映射GET &#x2F;cats请求映射到这个处理程序</span><br></pre></td></tr></table></figure>
+<h2 id="装饰器"><a href="#装饰器" class="headerlink" title="装饰器"></a>装饰器</h2><h5 id="Status-code-改变状态码"><a href="#Status-code-改变状态码" class="headerlink" title="Status code 改变状态码"></a>Status code 改变状态码</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@Post()</span><br><span class="line">@HttpCode(204)</span><br><span class="line">create() &#123;</span><br><span class="line">  return &#39;This action adds a new cat&#39;;</span><br><span class="line">&#125;</span><br><span class="line">除了POST请求为201之外，默认情况下响应状态代码总是200。通过在处理程序级别上添加@HttpCode(…)装饰器，我们可以很容易地改变这种行为.</span><br></pre></td></tr></table></figure>
+<h5 id="headers-指定自定义响应标头"><a href="#headers-指定自定义响应标头" class="headerlink" title="headers 指定自定义响应标头"></a>headers 指定自定义响应标头</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Post()</span><br><span class="line">@Header(&#39;Cache-Control&#39;, &#39;none&#39;)</span><br><span class="line">create() &#123;</span><br><span class="line">  return &#39;This action adds a new cat&#39;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="重定向"><a href="#重定向" class="headerlink" title="重定向"></a>重定向</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@Get()</span><br><span class="line">@Redirect(&#39;https:&#x2F;&#x2F;nestjs.com&#39;, 301)</span><br><span class="line">@Redirect()接受一个必需的url参数和一个可选的statusCode参数。如果省略，statusCode默认为302</span><br></pre></td></tr></table></figure>
+<p>返回值将覆盖传递给@Redirect()装饰器的任何参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@Get(&#39;docs&#39;)</span><br><span class="line">@Redirect(&#39;https:&#x2F;&#x2F;docs.nestjs.com&#39;, 302)</span><br><span class="line">getDocs(@Query(&#39;version&#39;) version) &#123;</span><br><span class="line">  if (version &amp;&amp; version &#x3D;&#x3D;&#x3D; &#39;5&#39;) &#123;</span><br><span class="line">    return &#123; url: &#39;https:&#x2F;&#x2F;docs.nestjs.com&#x2F;v5&#x2F;&#39; &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="路由参数"><a href="#路由参数" class="headerlink" title="路由参数"></a>路由参数</h5><p>@Param()装饰器访问以这种方式声明的路由参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Get(&#39;:id&#39;)</span><br><span class="line">findOne(@Param() params): string &#123;</span><br><span class="line">  console.log(params.id);</span><br><span class="line">  return &#96;This action returns a #$&#123;params.id&#125; cat&#96;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>还可以将特定的参数标记传递给decorator，然后在方法体中直接按名称引用route参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@Get(&#39;:id&#39;)</span><br><span class="line">findOne(@Param(&#39;id&#39;) id): string &#123;</span><br><span class="line">  return &#96;This action returns a #$&#123;id&#125; cat&#96;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="异步"><a href="#异步" class="headerlink" title="异步"></a>异步</h5><p>每个异步函数都必须返回一个承诺</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@Get()</span><br><span class="line">async findAll(): Promise&lt;any[]&gt; &#123;</span><br><span class="line">  return [];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此外，Nest路由处理程序甚至更强大，因为它能够返回RxJS observable streams。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@Get()</span><br><span class="line">findAll(): Observable&lt;any[]&gt; &#123;</span><br><span class="line">  return of([]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="请求"><a href="#请求" class="headerlink" title="请求"></a>请求</h2><p>@Body()装饰器来解决接收客户端参数<br>如果使用TypeScript，需要确定DTO(数据传输对象)模式，DTO是定义如何通过网络发送数据的对象。通过使用TypeScript接口或简单的类来确定DTO模式。nestjs建议在这里使用类。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">export class CreateCatDto &#123;</span><br><span class="line">  name: string;</span><br><span class="line">  age: number;</span><br><span class="line">  breed: string;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>它只有三个基本属性。然后我们可以在Controller中使用新创建的DTO</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@Post()</span><br><span class="line">async create(@Body() createCatDto: CreateCatDto) &#123;</span><br><span class="line">  return &#39;This action adds a new cat&#39;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="特定的响应对象"><a href="#特定的响应对象" class="headerlink" title="特定的响应对象"></a>特定的响应对象</h2><p>为了注入特定的response object，我们需要使用<code>@Res()</code>装饰器，nestjs不推荐使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import &#123; Controller, Get, Post, Res, HttpStatus &#125; from &#39;@nestjs&#x2F;common&#39;;</span><br><span class="line">import &#123; Response &#125; from &#39;express&#39;;</span><br><span class="line"></span><br><span class="line">@Controller(&#39;cats&#39;)</span><br><span class="line">export class CatsController &#123;</span><br><span class="line">  @Post()</span><br><span class="line">  create(@Res() res: Response) &#123;</span><br><span class="line">    res.status(HttpStatus.CREATED).send();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @Get()</span><br><span class="line">  findAll(@Res() res: Response) &#123;</span><br><span class="line">     res.status(HttpStatus.OK).json([]);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Providers"><a href="#Providers" class="headerlink" title="Providers"></a>Providers</h2><p>是一个用@Injectable()装饰器注释的类，Nest是围绕通常称为依赖注入的强设计模式构建的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">constructor(private catsService: CatsService) &#123;&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="基于属性的注入"><a href="#基于属性的注入" class="headerlink" title="基于属性的注入"></a>基于属性的注入</h2><p>如果顶级类依赖于一个或多个 providers，那么通过从构造函数中调用子类中的super()来传递它们就会非常烦人了。因此，为了避免出现这种情况，可以在属性上使用@inject()装饰器。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Injectable, Inject &#125; from &#39;@nestjs&#x2F;common&#39;;</span><br><span class="line"></span><br><span class="line">@Injectable()</span><br><span class="line">export class HttpService&lt;T&gt; &#123;</span><br><span class="line">  @Inject(&#39;HTTP_OPTIONS&#39;)</span><br><span class="line">  private readonly httpClient: T;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="注册-provider"><a href="#注册-provider" class="headerlink" title="注册 provider"></a>注册 provider</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Module &#125; from &#39;@nestjs&#x2F;common&#39;;</span><br><span class="line">import &#123; CatsController &#125; from &#39;.&#x2F;cats&#x2F;cats.controller&#39;;</span><br><span class="line">import &#123; CatsService &#125; from &#39;.&#x2F;cats&#x2F;cats.service&#39;;</span><br><span class="line"></span><br><span class="line">@Module(&#123;</span><br><span class="line">  controllers: [CatsController],</span><br><span class="line">  providers: [CatsService],</span><br><span class="line">&#125;)</span><br><span class="line">export class AppModule &#123;&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="中间件"><a href="#中间件" class="headerlink" title="中间件"></a>中间件</h2><p>中间件是在路由处理程序之前调用的函数。默认情况下，Nest中间件等同于express中间件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- 执行任何代码</span><br><span class="line">- 对请求和响应对象进行更改</span><br><span class="line">- 结束请求-响应周期</span><br><span class="line">- 调用堆栈中的下一个中间件函数</span><br><span class="line">- 如果当前中间件函数没有结束请求-响应周期，它必须调用next()来将控制权传递给下一个中间件函数。否则，请求将保持挂起状态</span><br></pre></td></tr></table></figure>
+
+<h2 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h2><p>管道是一个用@Injectable()装饰器注释的类。管道应该实现PipeTransform接口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">内置的管道</span><br><span class="line">ValidationPipe</span><br><span class="line">ParseIntPipe</span><br><span class="line">ParseBoolPipe</span><br><span class="line">ParseArrayPipe</span><br><span class="line">ParseUUIDPipe</span><br><span class="line">DefaultValuePipe</span><br></pre></td></tr></table></figure>
+<p>Class validator 类验证管道</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm i --save class-validator class-transformer</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import &#123; IsString, IsInt, IsNotEmpty&#125; from &#39;class-validator&#39;;</span><br><span class="line"></span><br><span class="line">export class CreateCatDto &#123;</span><br><span class="line">  @IsString()</span><br><span class="line">  @IsNotEmpty(&#123;message:&#39;名字不能为空&#39;&#125;)</span><br><span class="line">  name: string;</span><br><span class="line"></span><br><span class="line">  @IsInt()</span><br><span class="line">  age: number;</span><br><span class="line"></span><br><span class="line">  @IsString()</span><br><span class="line">  breed: string;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由于ValidationPipe是为了尽可能通用而创建的，所以我们可以通过将它设置为全局范围的管道来实现它的全部效用，这样它就可以应用到整个应用程序中的每个路由处理程序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">main.ts</span><br><span class="line">async function bootstrap() &#123;</span><br><span class="line">  const app &#x3D; await NestFactory.create(AppModule);</span><br><span class="line">  app.useGlobalPipes(new ValidationPipe());</span><br><span class="line">  await app.listen(3000);</span><br><span class="line">&#125;</span><br><span class="line">bootstrap()</span><br></pre></td></tr></table></figure>
+
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">NestJS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/07/11/NestJS/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-git" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -816,6 +928,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">NestJS</a>
+              </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">angular</a>
