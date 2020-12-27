@@ -6,15 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | GK</title>
+  <title>verdaccio搭建私有源 | GK</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="GK">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+  <meta name="description" content="Verdaccio是nodejs开发的轻量级私有npm代理服务。 安装Verdaccio123npm install -g verdaccioverdaccio -vverdaccio 启动  配置config.yaml 设置npm源安装nrm1npm i -g nrm 查看源的列表1nrm ls  删除指定的源1nrm del kang 添加源1nrm add kang http:127.0.0">
+<meta property="og:type" content="article">
+<meta property="og:title" content="verdaccio搭建私有源">
+<meta property="og:url" content="http://yoursite.com/2020/12/27/verdaccio%E6%90%AD%E5%BB%BA%E7%A7%81%E6%9C%89%E6%BA%90/index.html">
 <meta property="og:site_name" content="GK">
+<meta property="og:description" content="Verdaccio是nodejs开发的轻量级私有npm代理服务。 安装Verdaccio123npm install -g verdaccioverdaccio -vverdaccio 启动  配置config.yaml 设置npm源安装nrm1npm i -g nrm 查看源的列表1nrm ls  删除指定的源1nrm del kang 添加源1nrm add kang http:127.0.0">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/19829631-6aba4f01bcd9dc59.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/800">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/19829631-34dfc432b928c513.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/19829631-d2547c2f6df3be41.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/19829631-9a9c7c6d25b9fd64.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="article:published_time" content="2020-12-27T01:57:52.000Z">
+<meta property="article:modified_time" content="2020-12-27T01:59:35.432Z">
 <meta property="article:author" content="GK">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/19829631-6aba4f01bcd9dc59.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/800">
   
     <link rel="alternative" href="/atom.xml" title="GK" type="application/atom+xml">
   
@@ -154,233 +163,173 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-verdaccio搭建私有源" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      verdaccio搭建私有源
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/12/27/verdaccio%E6%90%AD%E5%BB%BA%E7%A7%81%E6%9C%89%E6%BA%90/" class="archive-article-date">
+
+        
+        <a href="/2020/12/27/verdaccio%E6%90%AD%E5%BB%BA%E7%A7%81%E6%9C%89%E6%BA%90/" class="archive-article-date">
   	<time datetime="2020-12-27T01:57:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-27</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/12/27/verdaccio%E6%90%AD%E5%BB%BA%E7%A7%81%E6%9C%89%E6%BA%90/">verdaccio搭建私有源</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><code>Verdaccio</code>是nodejs开发的轻量级私有npm代理服务。</p>
+<h4 id="安装Verdaccio"><a href="#安装Verdaccio" class="headerlink" title="安装Verdaccio"></a>安装Verdaccio</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install -g verdaccio</span><br><span class="line">verdaccio -v</span><br><span class="line">verdaccio 启动</span><br></pre></td></tr></table></figure>
+<p><img src="https://upload-images.jianshu.io/upload_images/19829631-6aba4f01bcd9dc59.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/800" alt="启动verdaccio"></p>
+<h4 id="配置config-yaml"><a href="#配置config-yaml" class="headerlink" title="配置config.yaml"></a>配置config.yaml</h4><p><img src="https://upload-images.jianshu.io/upload_images/19829631-34dfc432b928c513.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="配置config.yaml"></p>
+<h2 id="设置npm源"><a href="#设置npm源" class="headerlink" title="设置npm源"></a>设置npm源</h2><h4 id="安装nrm"><a href="#安装nrm" class="headerlink" title="安装nrm"></a>安装nrm</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -g nrm</span><br></pre></td></tr></table></figure>
+<h4 id="查看源的列表"><a href="#查看源的列表" class="headerlink" title="查看源的列表"></a>查看源的列表</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nrm ls</span><br></pre></td></tr></table></figure>
+<p><img src="https://upload-images.jianshu.io/upload_images/19829631-d2547c2f6df3be41.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="列出源"></p>
+<h4 id="删除指定的源"><a href="#删除指定的源" class="headerlink" title="删除指定的源"></a>删除指定的源</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nrm del kang</span><br></pre></td></tr></table></figure>
+<h4 id="添加源"><a href="#添加源" class="headerlink" title="添加源"></a>添加源</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nrm add kang http:127.0.01:4873</span><br></pre></td></tr></table></figure>
+<h4 id="切换源"><a href="#切换源" class="headerlink" title="切换源"></a>切换源</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nrm use kang</span><br></pre></td></tr></table></figure>
+<h4 id="注册用户"><a href="#注册用户" class="headerlink" title="注册用户"></a>注册用户</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm addUser</span><br><span class="line">输入用户名、密码、邮箱即可</span><br></pre></td></tr></table></figure>
+<h4 id="发布包"><a href="#发布包" class="headerlink" title="发布包"></a>发布包</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">去到指定的要发布包的目录下</span><br><span class="line">npm publish</span><br></pre></td></tr></table></figure>
+<p><img src="https://upload-images.jianshu.io/upload_images/19829631-9a9c7c6d25b9fd64.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="上传的包"></p>
+<h2 id="pm2进程管理工具"><a href="#pm2进程管理工具" class="headerlink" title="pm2进程管理工具"></a>pm2进程管理工具</h2><h4 id="安装pm2"><a href="#安装pm2" class="headerlink" title="安装pm2"></a>安装pm2</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g pm2</span><br></pre></td></tr></table></figure>
+<h4 id="启动进程"><a href="#启动进程" class="headerlink" title="启动进程"></a>启动进程</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pm2 start verdaccio</span><br></pre></td></tr></table></figure>
+<h4 id="结束进程"><a href="#结束进程" class="headerlink" title="结束进程"></a>结束进程</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pm2 stop verdaccio</span><br></pre></td></tr></table></figure>
+<h4 id="重新启动进程"><a href="#重新启动进程" class="headerlink" title="重新启动进程"></a>重新启动进程</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pm2 restart verdaccio</span><br></pre></td></tr></table></figure>
+<p>等等……</p>
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/12/27/verdaccio%E6%90%AD%E5%BB%BA%E7%A7%81%E6%9C%89%E6%BA%90/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/07/11/NestJS/" class="archive-article-date">
-  	<time datetime="2020-07-11T13:59:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-11</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/07/11/NestJS/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">NestJS</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/07/11/NestJS/">NestJS</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">NestJS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/07/01/git/" class="archive-article-date">
-  	<time datetime="2020-07-01T08:59:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/07/01/git/">git</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/07/01/%E9%AB%98%E6%80%A7%E8%83%BDNginx%E6%9C%8D%E5%8A%A1%E5%99%A8/" class="archive-article-date">
-  	<time datetime="2020-07-01T08:45:21.295Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/07/01/%E9%AB%98%E6%80%A7%E8%83%BDNginx%E6%9C%8D%E5%8A%A1%E5%99%A8/">高性能Nginx服务器</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/06/23/angular%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="archive-article-date">
-  	<time datetime="2020-06-23T08:46:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/06/23/angular%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">angular基础知识</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">angular</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/02/04/Webpack4.0/" class="archive-article-date">
-  	<time datetime="2020-02-04T01:29:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/02/04/Webpack4.0/">Webpack4.0</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/02/03/%E8%82%A1%E7%A5%A8%E4%BC%B0%E5%80%BC%E7%9F%A5%E8%AF%86%E7%82%B9/" class="archive-article-date">
-  	<time datetime="2020-02-03T02:40:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/02/03/%E8%82%A1%E7%A5%A8%E4%BC%B0%E5%80%BC%E7%9F%A5%E8%AF%86%E7%82%B9/">股票估值知识点</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -403,8 +352,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
