@@ -156,6 +156,157 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-windows下nexus3搭建npm私服" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/27/windows%E4%B8%8Bnexus3%E6%90%AD%E5%BB%BAnpm%E7%A7%81%E6%9C%8D/">windows下nexus3搭建npm私服</a>
+    </h1>
+  
+
+        
+        <a href="/2020/12/27/windows%E4%B8%8Bnexus3%E6%90%AD%E5%BB%BAnpm%E7%A7%81%E6%9C%8D/" class="archive-article-date">
+  	<time datetime="2020-12-27T04:22:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="下载nexus3"><a href="#下载nexus3" class="headerlink" title="下载nexus3"></a>下载nexus3</h2><p><a href="https://download.sonatype.com/nexus/3/latest-win64.zip" target="_blank" rel="noopener">https://download.sonatype.com/nexus/3/latest-win64.zip</a></p>
+<h2 id="内存配置"><a href="#内存配置" class="headerlink" title="内存配置"></a>内存配置</h2><p><img src="https://upload-images.jianshu.io/upload_images/19829631-aa471a30fbcc02ee.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br><img src="https://upload-images.jianshu.io/upload_images/19829631-298268b604164bb3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h2 id="解压并运行nexus3"><a href="#解压并运行nexus3" class="headerlink" title="解压并运行nexus3"></a>解压并运行nexus3</h2><p>解压后，进入nexus-3.29.1-01-win64\nexus-3.29.1-01\bin目录，使用cmd命令执行：·</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nexus.exe &#x2F;run</span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用run命令启动存储库管理器将使其在当前shell中运行，并显示日志输出。一旦日志显示消息“Started Sonatype Nexus”，就可以访问该应用程序。（第一次时间会稍长，耐心等待一下）</li>
+<li>默认端口为8081</li>
+<li>也可以在nexus-3.29.1-01-win64\sonatype-work\nexus3\etc目录下nexus.properties文件中修改端口号</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/19829631-ecc1d19755ca2aba.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/19829631-f7c1edef4a45c93a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="cmd中出现上述字样表明启动成功"></p>
+<ul>
+<li>浏览器中输入<a href="http://localhost:8081" target="_blank" rel="noopener">http://localhost:8081</a></li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/19829631-e99a19d305ba27e9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<ul>
+<li>第一次执行完后，会在目录nexus-3.29.1-01-win64\sonatype-work\nexus3下生成密码</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/19829631-a4ffbe9f8022e624.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<ul>
+<li>第一次登录会告诉你密码的位置</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/19829631-d124bbebfc0ffb71.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<ul>
+<li>登录成功后，会有四个向导</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/19829631-da9d940bc6d1c997.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<ul>
+<li>要求重新修改密码</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/19829631-423865c1e5df644f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<ul>
+<li>配置匿名访问，这里选择第一项允许</li>
+<li>启用匿名访问意味着在默认情况下，用户可以在没有凭据的情况下搜索、浏览和下载存储库中的组件。请考虑对您的组织的安全影响</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/19829631-38bbae83964ebad1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<ul>
+<li>完成向导配置，密码文件也会自动消失</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/19829631-6788aa785de0eda5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h2 id="创建存储空间"><a href="#创建存储空间" class="headerlink" title="创建存储空间"></a>创建存储空间</h2><p><img src="https://upload-images.jianshu.io/upload_images/19829631-5aa3be487762afca.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<ul>
+<li>输入空间的名词，点击创建<br><img src="https://upload-images.jianshu.io/upload_images/19829631-f5499da4600768d1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></li>
+</ul>
+<h2 id="创建仓库"><a href="#创建仓库" class="headerlink" title="创建仓库"></a>创建仓库</h2><p><img src="https://upload-images.jianshu.io/upload_images/19829631-d1eed7c81f724dce.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<ul>
+<li>hosted（私有仓库）：用于发布个人开发的npm组件</li>
+<li>proxy（代理仓库）：可以代理npm和淘宝镜像</li>
+<li>group（组合仓库）：对外公开的仓库，集合了hosted和proxy</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/19829631-84f85a6bd3c08fb9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h4 id="创建Hosted-npm-Registries"><a href="#创建Hosted-npm-Registries" class="headerlink" title="创建Hosted npm Registries"></a>创建Hosted npm Registries</h4><ul>
+<li>输入仓库名称，存储空间选择刚刚创建的</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/19829631-134c69299c29618e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h4 id="创建Proxy-npm-Registries"><a href="#创建Proxy-npm-Registries" class="headerlink" title="创建Proxy npm Registries"></a>创建Proxy npm Registries</h4><ul>
+<li>输入仓库名称，存储空间选择刚刚创建的，代理的远程地址可以写<a href="https://registry.npmjs.org，也可以写淘宝镜像（https://registry.npm.taobao.org），点击create创建" target="_blank" rel="noopener">https://registry.npmjs.org，也可以写淘宝镜像（https://registry.npm.taobao.org），点击create创建</a></li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/19829631-904e146f2844f212.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h4 id="创建Group-npm-Registries"><a href="#创建Group-npm-Registries" class="headerlink" title="创建Group npm Registries"></a>创建Group npm Registries</h4><ul>
+<li>组合仓库中除了输入名称和选择存储空间之外，还要选择要包括的仓库，越靠上优先级越高，如果私有仓库在上，用户下载npm包的时候会优先下载私有仓库中的，如果私有仓库没有再去代理仓库中下载。</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/19829631-2eeda3eff34bea1f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h2 id="用户使用私服"><a href="#用户使用私服" class="headerlink" title="用户使用私服"></a>用户使用私服</h2><p>到这里，nexus设置好了</p>
+<ul>
+<li>用户端设置npm的registry为group仓库</li>
+<li>首先复制出group仓库的链接地址</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/19829631-63148568745eabde.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h4 id="用户端设置registry"><a href="#用户端设置registry" class="headerlink" title="用户端设置registry"></a>用户端设置registry</h4><p>方法一：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config set registry http:&#x2F;&#x2F;私服所在服务器地址:port&#x2F;regository&#x2F;npm-group</span><br></pre></td></tr></table></figure>
+<p>方法二：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">修改C:\Users\Administrator下的.npmrc文件，修改为：</span><br><span class="line">registry&#x3D;http:&#x2F;&#x2F;npm私服所在服务器的ip地址:port&#x2F;repository&#x2F;npm-group&#x2F;</span><br></pre></td></tr></table></figure>
+
+<h4 id="用户发布自己的npm包到私服"><a href="#用户发布自己的npm包到私服" class="headerlink" title="用户发布自己的npm包到私服"></a>用户发布自己的npm包到私服</h4><ul>
+<li>首先，登陆私服、输入nexus的用户名、密码和邮箱：</li>
+<li>然后，就可以发布了，要发布的模块，必须保证在根目录下有package.json文件，否则会报错<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm login –registry&#x3D;http:&#x2F;&#x2F;npm私服所在服务器的ip地址:port&#x2F;repository&#x2F;npm-hosted&#x2F;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm publish –registry&#x3D;http:&#x2F;&#x2F;npm私服所在服务器的ip地址:port&#x2F;repository&#x2F;npm-hosted&#x2F;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h2 id="服务的形式启动nexus"><a href="#服务的形式启动nexus" class="headerlink" title="服务的形式启动nexus"></a>服务的形式启动nexus</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nexus.exe &#x2F;install &lt;optional-service-name&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>服务名可以不写，默认为nexus</li>
+<li>新服务默认命名为nexus。它在Windows控制台应用程序中可用来管理服务，比如Windows服务。您可以在那里启动、停止和重新启动服务，并将其配置为作为操作系统启动的一部分启动。您也可以通过命令行管理服务<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nexus.exe &#x2F;start &lt;optional-service-name&gt;</span><br><span class="line">nexus.exe &#x2F;stop &lt;optional-service-name&gt;</span><br><span class="line">nexus.exe &#x2F;uninstall &lt;optional-service-name&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/12/27/windows%E4%B8%8Bnexus3%E6%90%AD%E5%BB%BAnpm%E7%A7%81%E6%9C%8D/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-verdaccio搭建私有源" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
